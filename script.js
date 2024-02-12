@@ -1,30 +1,35 @@
-// // Your code here.
-// const items = document.querySelector('.items');
-//     let isDown = false;
-//     let startX;
-//     let scrollLeft;
+const itemsContainer = document.querySelector(".items");
+const items = document.querySelectorAll(".item");
 
-//     items.addEventListener('mousedown', (e) => {
-//       isDown = true;
-//       items.classList.add('active');
-//       startX = e.pageX - items.offsetLeft;
-//       scrollLeft = items.scrollLeft;
-//     });
+let isDragging = false;
+let startX;
+let scrollLeft;
 
-//     items.addEventListener('mouseleave', () => {
-//       isDown = false;
-//       items.classList.remove('active');
-//     });
+itemsContainer.addEventListener("mousedown", (e) => {
+  isDragging = true;
+  startX = e.pageX - itemsContainer.offsetLeft;
+  scrollLeft = itemsContainer.scrollLeft;
+  itemsContainer.classList.add("active");
+});
 
-//     items.addEventListener('mouseup', () => {
-//       isDown = false;
-//       items.classList.remove('active');
-//     });
+itemsContainer.addEventListener("mouseup", () => {
+  isDragging = false;
+  itemsContainer.classList.remove("active");
+});
 
-//     items.addEventListener('mousemove', (e) => {
-//       if (!isDown) return;
-//       e.preventDefault();
-//       const x = e.pageX - items.offsetLeft;
-//       const walk = (x - startX) * 2;
-//       items.scrollLeft = scrollLeft - walk;
-//     });
+itemsContainer.addEventListener("mouseleave", () => {
+  isDragging = false;
+  itemsContainer.classList.remove("active");
+});
+
+itemsContainer.addEventListener("mousemove", (e) => {
+  if (!isDragging) return;
+  e.preventDefault();
+  const x = e.pageX - itemsContainer.offsetLeft;
+  const walk = (x - startX) * 2;
+  itemsContainer.scrollLeft = scrollLeft - walk;
+});
+
+itemsContainer.addEventListener("contextmenu", (e) => {
+  e.preventDefault();
+});
